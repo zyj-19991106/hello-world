@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="css/font-awesome.css">
+	<meta charset="UTF-8">
+	<title>待出售</title>
+    <style type="text/css">
+
+      .cfx{
+        width: 69%;
+        height: 6%;
+        position:absolute;
+        left:0%;
+      }
+	.zfx2{
+		width: 100%;
+	    height: 100%;
+		border-style:solid;
+		border-width:0.5px;
+		border-color:#d4cdcd;
+	    background-color: white;
+		position: fixed;
+	    left: 0%;
+		top: 14%;
+		}
+	.zi{
+	    
+	    font-size: 40px;
+	    font-family: 微软雅黑;
+	    color: black;
+	}
+	.circle
+	{
+		width: 125px;
+		height: 125px; 
+		background-color:#065e61;
+		border-radius: 50%;    
+		-moz-border-radius: 50%; 
+		-webkit-border-radius: 50%;
+		position:absolute;
+		top:11%;
+		left:4%;
+	}
+	.cir{
+		width: 83px;
+		height: 79px; 
+		border-radius: 50%;  
+		border-style:solid;
+		border-width:8.5px;
+		border-color:#d4cdcd;
+		position:absolute;
+		top:29%;
+		left:4%;
+		}
+	
+	.img
+	{
+		width: 30%;
+	    height: 90%;
+	    border-style: solid;
+	    border-width: 0.5px;
+	    border-color: #d4cdcd;
+	    background-color: white;
+	    position: absolute;
+	    left: 5%;
+	    top: 5%;
+	}
+	.bt
+	{
+		width: 31%;
+	    height: 100%;
+	    border-style: solid;
+	    border-width: 1px;
+	    border-color: #4d9fe9;
+	    background-color: #4d9fe9;
+	    position: absolute;
+	    font-size: 60px;
+	    color: white;
+	    top: 0%;
+	    left: 23%;
+	}
+      h1{
+        top:6%;
+        left: 0;
+        width: 100%;
+        height:7%;
+        position: fixed;
+        background-color: white;
+      }
+     h2{
+        top:16%;
+        left: 0;
+        width: 100%;
+        height:7%;
+        position: fixed;
+        background-color: white;
+      }
+     h3{
+        top:15%;
+        left: 0;
+        width: 100%;
+        height:20%;
+        position: fixed;
+        background-color: white;
+      }
+
+      .sanchu{
+           font-family: 微软雅黑;
+           font-size: 230%;
+           width: 20%;
+           height:20%;
+          color: white;
+      }
+
+    </style>
+</head>
+<body bgcolor="#F0F0F0">
+</body>
+<body>
+
+  <div id="top" class="cfx" style="position:fixed;top:0%;width:101%;height:8%;background-color: #4D9FE9;z-index: 2;">
+    <a href="personal_center.html"style="text-decoration:none;"><i class="fa fa-chevron-left fa-5x"style="position:absolute;top:15%;left:3%;color:white;"></i></a>
+    <text style="position:absolute;top:20%;left:37%;font-size:350%;color:white;">查看订单</text>
+
+  </div>
+
+  <div>
+      <h1 style="z-index: 2;">
+        <a onclick="window.location.href='shoudaodedingdan.html'"  style="position: absolute;top:20%;left:10%;font-size:150%;color:  black">待出售</a>
+        <a onclick="window.location.href='daijijian.html' "  style="position: absolute;top:20%;left:33%;font-size:150%;color:  black">待寄件</a>
+        <a onclick="window.location.href='daiqueren.html' "  style="position: absolute;top:20%;left:57%;font-size:150%;color:  black">待确认</a>
+        <a onclick=""  style="position: absolute;top:20%;left:80%;font-size:150%;color: #4D9FE9">已售</a>
+    </h1>
+
+  </div>
+
+  <div id=mid8>
+  </div>
+
+<div id="bottom" class="cfx" style="position:fixed;top:94%;width:101%;height:6%;background-color:white;">
+
+	<a href="shouye.html"style="text-decoration:none;"><i class="fa fa-home fa-5x"style="position:absolute;top:21%;left:9%;color:#797272;font-size:440% "></i></a>
+	<text style="position:absolute;top:75%;left:10%;color:#797272;font-size:24px;">首页</text>
+
+	<a href="message.html"style="text-decoration:none;"><i class="fa fa-commenting-o fa-5x"style="position:absolute;top:17%;left:32%;color:#797272 ;font-size:440%"></i></a>
+	<text style="position:absolute;top:76%;left:33%;color:#797272;font-size:24px;">消息</text>
+
+	<a href="shopcar.html"style="text-decoration:none;"><i class="fa fa-shopping-cart fa-5x" style="position:absolute;top:19%;left:56%;color:#797272;font-size:440%"></i></a>
+	<text style="position:absolute;top:75%;left:56%;color:#797272;font-size:24px;">购物车</text>
+
+	<a href="personal_center.html"style="text-decoration:none;"><i class="fa fa-user-o fa-5x" style="position:absolute;top:25%;left:82%;color:#797272;font-size:392%"></i></a>
+	<text style="position:absolute;top:76%;left:82%;color:#797272;font-size:24px;">我的</text>
+
+</div>
+
+
+</body>
+</html>
+
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
+</script>
+<script type="text/javascript">
+	var index=new Array();
+	var total=0;
+	var O_ID=new Array();
+	window.onload=function(){
+		var data={
+		    "S_ID":localStorage.getItem('S_ID')
+		}
+		$.ajax({
+		    url:'http://127.0.0.1:5000/gordersearch3/',
+		    type:'post',
+			data:JSON.stringify(data),
+		    success:function (data){
+			for (var i=0;i<data["len"];i++)
+			{
+				var top_value=String((10.2+i*20.2))+"%";
+				O_ID[i]=data['data'][i][0];
+				Book_ID=data['data'][i][1];
+				$("#mid8").append(
+				'<div id="p'+i+'"style="position:absolute;top:'+top_value+';left:0%;width:100%;height:30%; display:"" ">'+
+				'<div class="zfx2"style="position:absolute;left:0%;height: 67%;">'+
+					'<text style="position:absolute;top:15%;left:70%;font-size:250%;color: red">'+"已确认"+'</text>'+
+					'<div id="img" class="img"><img "type="button" onclick="bookdetail(this)" src="./img/'+data['data'][i][10]+'" style="position: absolute;width: 90%;height: 85%;"/></div>'+
+					'<text id="bname'+i+'"class="zi"style="position:absolute;top:12%;left:35%;">'+data['data'][i][13]+'</text>'+
+					'<text style="position:absolute;top:42%;left:65%;font-size:250%;color: black">'+"价格："+''+data['data'][i][8]+'</text>'+
+					'<input  class="sanchu" type="button" onclick="display1(this)" style="position:absolute; left:52%; top:70%;border-radius:10px;background-color:#4D9FE9" value="查看卖家"  />'+
+					'<input  class="sanchu" type="button" onclick="display2(this)" style="position:absolute; left:75%; top:70%;border-radius:10px;background-color:#4D9FE9" value="查看评价"  />'+
+					'</div>'+
+				'</div>')
+				total++;
+				index[total]=total;
+			}
+		},
+		error:function (data) {
+		    alert('error');
+		}
+		});	
+	}
+</script>
+
+<script type="text/javascript">
+	function display1(obj)
+	{
+		var data = {
+			"S_ID":localStorage.getItem('S_ID'),
+		}
+		$.ajax({
+		    url: 'http://127.0.0.1:5000/？/',
+		    type: 'post',
+		    data: JSON.stringify(data),
+		    success: function (data) {
+		        if (data["data"] == 2001) {
+		            alert("成功");
+		        } 
+		    },
+		    error: function (data) {
+		        alert('error');
+		    }
+		});
+		window.location.href="user.html"
+	}
+	function display2(obj)
+	{
+		var data = {
+			"S_ID":localStorage.getItem('S_ID'),
+		}
+		$.ajax({
+		    url: 'http://127.0.0.1:5000//',
+		    type: 'post',
+		    data: JSON.stringify(data),
+		    success: function (data) {
+		        if (data["data"] == 2001) {
+		            alert("成功");
+		        } 
+		    },
+		    error: function (data) {
+		        alert('error');
+		    }
+		});
+		window.location.href='book_details.html'
+	}
+	function bookdetail(obj)
+	{
+		var data = {
+			"book_ID":Book_ID[obj.id[1]]
+		}
+		$.ajax({
+		    url: 'http://127.0.0.1:5000/Book_details/',
+		    type: 'post',
+		    data: JSON.stringify(data),
+		    success: function (data) {       
+		        alert("success");
+		    },
+		    error: function (data) {
+		        alert('error');
+		    }
+		});
+		window.location.href='book_details.html'
+	}
+</script>
