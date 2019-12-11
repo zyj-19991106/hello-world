@@ -442,6 +442,60 @@ def Book_details():
     return jsonify({"data": data_list})                                  #[书籍号，书籍名，作家，出版社，价格，新旧程度，详细描述，
                                                                             # 书籍图，卖家学号，卖家昵称，卖家头像,卖家性别]
 
+@app.route('/head/',methods=['post'])                               #头像设置
+def head():
+    data=request.get_json('data')
+    S_ID=data['S_ID']
+    str2=data['upload_img']
+    pattern=re.compile(',')
+    str1=pattern.search(str2)
+    a=int(str1.span()[1])
+    str2=str2[a:]
+    str2=bytes(str2, encoding='utf-8')
+    os.chdir(r'C:\Users\12631\Desktop\12\photo')
+    img = base64.b64decode(str2)
+    str3=S_ID+".jpg"
+    file = open(str3,'wb')
+    file.write(img)
+    file.close()
+    sql="update Student set Photo ='photo/" + str3 +"' where S_ID="+"'"+S_ID+"'"
+    cursor.execute(sql)
+    book_data.commit()
+    return jsonify({"statues":1})
+
+@app.route('/introduction/',methods=['post'])
+def introduction():
+    data = request.get_json('data')
+    S_ID=data['S_ID']
+    text=data['text']
+    print(text)
+    sql="update Student set Introduction="+ "'"+text+"' where S_ID=" +"'"+S_ID+"'"
+    print(sql)
+    cursor.execute(sql)
+    book_data.commit()
+    return jsonify({"statue":2001})
+
+@app.route('/setup/',methods=['Post'])#个人设置
+def setup():
+    data = request.get_json('data')
+    S_ID = data['S_ID']
+    sql="select S_ID,Nick_name,Photo,College from Student where S_ID="+"'"+S_ID+"'"
+    cursor.execute(sql)
+    data=cursor.fetchone()
+    print(data)
+    return jsonify({"data": data})
+
+@app.route('/setname/',methods=['Post'])
+def setname():                                                              #设置昵称
+    data = request.get_json('data')
+    S_ID = data['S_ID']
+    Nick_name=data['Nick_name']
+    sql="update Student set Nick_name="+"'"+Nick_name+"'"+"where S_ID="+"'"+S_ID+"'"
+    cursor.execute(sql)
+    book_data.commit()
+    return jsonify({"statue":2001})
+
+
 
 if __name__ == '__main__':                                          #主函数
         book_data = get_connection()                                #连接数据库
