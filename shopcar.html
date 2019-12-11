@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<meta charset="utf-8"name="viewport" content="user-scalable=no">
+<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+<title>易书</title>
+<style type="text/css">
+body 
+{
+background-color:#f0f0f0;
+}
+.cfx{
+    width: 69%;
+    height: 6%;
+	position:absolute;
+	left:0%;
+}
+.zfx2{
+	width: 100%;
+    height: 19%;
+	border-style:solid;
+	border-width:0.5px;
+	border-color:#d4cdcd;
+    background-color: white;
+	position: absolute;
+    left: 0%;
+	}
+.zfx3
+{
+	width: 100%;
+    height: 11%;
+	border-style:solid;
+	border-width:0.5px;
+	border-color:#d4cdcd;
+    background-color: white;
+	position: absolute;
+    top: 14%;
+	}
+	
+.zi{
+    
+    font-size: 47px;
+    font-family: 宋体;
+    color: black;
+}
+.circle
+{
+	width: 125px;
+	height: 125px;
+	background-color:#065e61;
+	border-radius: 50%;
+	-moz-border-radius: 50%;
+	-webkit-border-radius: 50%;
+	position:absolute;
+	top:11%;
+	left:4%;
+}
+.cir{
+	width: 83px;
+	height: 79px;
+	border-radius: 50%;
+	border-style:solid;
+	border-width:8.5px;
+	border-color:#d4cdcd;
+	position:absolute;
+	top:29%;
+	left:4%;
+	}
+
+.img
+{
+	width: 21%;
+    height: 90%;
+    border-style: solid;
+    border-width: 0.5px;
+    border-color: #d4cdcd;
+    background-color: white;
+    position: absolute;
+    left: 18%;
+    top: 5%;
+}
+.bt
+{
+	width: 31%;
+    height: 100%;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #4d9fe9;
+    background-color: #4d9fe9;
+    position: absolute;
+    font-size: 60px;
+    color: white;
+    top: 0%;
+    left: 23%;
+}
+</style>
+</head>
+<!--上横条-->
+<div id="top" class="cfx" style="position:fixed; z-index: 100;top:0%;width:100%;height:10%;background-color: #4d9fe9;">
+<text id="name"style="position:absolute;top:30%;left:41%;font-size:58px;font-family: 宋体;color: white;">购物车</text>
+<i onclick="window.location.href='shouye.html'" class="fa fa-angle-left" style="position:absolute;top:30%;left:11%;font-size: 500%;color: white;"></i>
+</div>
+<div id="mid">
+</div>
+	<!-- <div style="position: absolute;top: 121%;height:7%;">
+		<text id="xuyuan" class="zi"style="text-align: center;">到底了袄</text>
+	</div> -->
+
+
+
+<!--结算部分-->
+<div style="position:fixed;bottom: 0px;right: 2px;width:100%;height:9%;background-color:white;">
+<text id="smon"class="zi"style="position:absolute;top:50%;left:24%;font-size:44px;">00.00</text>
+<i class="fa fa-rmb fa-4x"style="position:absolute;top:46%;left:18%;color:#d4cdcd;"></i>
+<text  class="zi"style="position:absolute;top:43%;left:4%;font-size:47px;">合计：</text>
+<button onclick="next()" id="jiaguanzhu" class="bt"style="position:absolute;left:69%;">结算</button>
+</div>
+
+
+
+
+</body>
+</html>
+
+<script src="https://cdn.staticfile.org/jquery/3.4.0/jquery.min.js"></script>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    var index=new Array();
+    var total=0;
+	var sum=0.00;
+	var n=10;
+    var book_id=new Array();
+    window.onload = function()
+    {
+        var S_ID=localStorage.getItem('S_ID');
+        var data={
+            "S_ID":S_ID
+        }
+        $.ajax({
+                url:'http://127.0.0.1:5000/getshopcar_data/',
+                type:'post',
+                data:JSON.stringify(data),
+                success:function (data) {
+                        if(data["statue"] == 1||data["statue"] ==2)
+                        {
+                           // alert(data["0"]);
+                            for(i in data['data']) {
+                                var pos=String((n+(i)*27))+"%";
+                                var ss=i;
+                                var temp = ss.toString();
+                                 book_id[i]=data['data'][i][7];
+                                 //alert(book_id[i]);
+								 $("#mid").append(
+								'<div id="p'+i+'"style="position:absolute;top:'+pos+';left:0%;width:100%;height:30%; display:"" ">'+
+								'<div class="zfx3"style="position:absolute;left:0%;top:3%;height: 29%;">'+
+								' <img  src="' +data['data'][i][0]+'" id="cir'+i+'" class="circle"/>'+
+								'<i class="fa fa-mars fa-3x"style="position:absolute;top:18%;left:19%;color:blue;"></i>'+
+								'<text id="name'+i+'" class="zi" style="position:absolute;top:21%;left:26%;">'+data['data'][i][2]+'</text>'+
+								'<text id="xuyuan'+i+'" class="zi" style="position:absolute;top:54%;left:19%;">'+data['data'][i][3]+'</text>'+
+								'</div>'+
+								'<div class="zfx2"style="position:absolute;left:0%;top:32%;height: 60%;">'+
+								'<div class="cir" id="c'+i+'" onclick="replace(this)" style="border-color:#d4cdcd;"></div>'+
+								'<div id="img" class="img"><img src="'+data['data'][i][4]+'" style="position: absolute;width: 90%;height: 90%;"/></div>'+
+								'<text id="bname'+i+'"class="zi"style="position:absolute;top:18%;left:46%;">'+data['data'][i][5]+'</text>'+
+								'<text id="bmon'+i+'"class="zi"style="position:absolute;top:66%;left:54%;">'+data['data'][i][6]+'</text>'+
+								'<i class="fa fa-rmb fa-4x"style="position:absolute;top:61%;left:49%;color:#d4cdcd;"></i>'+
+								'<i class="fa fa-times-circle fa-5x" id="z'+i+'"onclick="nodisplay(this)" style="position:absolute;top:38%;left:85%;color:#d4cdcd;"></i>'+
+								'</div>'+
+								'</div>')
+
+                                total++;
+                				index[total]=total;
+                            }
+                        }
+                        else
+                        {
+                            alert('error1')
+                        }
+                },
+                error:function (data) {
+                    alert('error2');
+                }
+        });}
+	function replace(obj)
+	{
+
+			var t="#"+obj.id;
+			var tt="bmon"+obj.id[1];
+			var x=$(t).css("border-color")
+			var tag1=document.getElementById(tt);
+	        var content1=parseFloat(tag1.innerText);
+			//alert(x);
+			if(x=="rgb(212, 205, 205)")
+			{
+				$(t).css("border-color","#99bcfc");
+
+				//alert(content1);
+				sum=sum+content1;
+			    document.getElementById("smon").innerHTML =sum.toFixed(2);
+			}
+			else
+			{
+			$(t).css("border-color","#d4cdcd");
+				sum=sum-content1;
+				document.getElementById("smon").innerHTML =sum.toFixed(2);
+			}
+
+
+
+
+	}
+
+
+    function nodisplay(obj)
+	{
+            alert(book_id[obj.id[1]])
+			 var S_ID = localStorage.getItem('S_ID');
+             var data = {
+            "S_ID": S_ID,
+            "delete_id":book_id[obj.id[1]]
+        }
+        $.ajax({
+            url: 'http://127.0.0.1:5000/del_shopcar/',
+            type: 'post',
+            data: JSON.stringify(data),
+            success: function (data) {
+
+                    window.location.href='shopcar.html';
+
+            },
+            error: function (data) {
+                alert('error');
+            }
+        });
+	}
+
+
+
+
+	function next() {
+        var res = {};
+        var j=0
+        for (var i = 0; i < 10000; i++) {
+            var t = "#" + "c" + i.toString();
+            var x = $(t).css("border-color");
+            console.log(x)
+            if (x == "rgb(153, 188, 252)")
+            {
+                var b=book_id[i];
+                console.log(b)
+                res[j]= b;
+                j=j+1;
+
+            }
+
+
+        }
+       var d=JSON.stringify(res);
+        localStorage["b_id"]=d;
+        var S_ID = localStorage.getItem('S_ID');
+        var data = {
+            "S_ID": S_ID,
+            "book_id": res
+
+        }
+        console.log(data)
+        $.ajax({
+            url: 'http://127.0.0.1:5000/creat_order/',
+            type: 'post',
+            data: JSON.stringify(data),
+            success: function (data) {
+                if (data["statue"] == 1) {
+                   // alert(res[1]);
+
+                } else {
+                    alert('errorsss')
+                }
+            },
+            error: function (data) {
+                alert('errorsccc');
+            }
+        });
+        window.location.href='dingdan.html'
+    }
+
+
+</script>
