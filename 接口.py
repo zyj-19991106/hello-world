@@ -120,113 +120,24 @@ def getshopcar_data():
     sql="select * from Shoopcar WHERE Buy_ID="+"'"+SID+"'"
     cursor.execute(sql)
     data=cursor.fetchall()
+    if (data == None):
+        final_data = {"statue": 2}
+        return jsonify(final_data)
     i=0
     final_data={"statue":1}                                                         #正常返回
-    data1={}
-    if(len(data)==0):final_data={"statue":0}                                       #没有搜索到该用户购物车数据
+    list=[]
+    if(len(data)==0):
+        final_data={"statue":2}                                       #没有搜索到该用户购物车数据
+        return jsonify(final_data)
     while i<len(data):
-        sql="select Photo,Sex,Nick_name,College from Student where S_ID="+"'"+data[i][2]+"'"
+        sql = "select Student.Photo,Sex,Nick_name,College,Book_Name,Price,Book_Photo.Photo,Book.Book_ID from Book,Student,Book_Photo where Book.Sell_ID=Student.S_ID and Book.Book_ID=Book_Photo.Book_ID and Student.S_ID=" + "'" + data[i][2] + "' and Book.Book_ID="+"'"+data[i][1]+"'"
         cursor.execute(sql)
-        sell= cursor.fetchone()
-        sql = "select Book_Name,Price from Book where Book_ID=" + "'" + data[i][1] + "'"
-        cursor.execute(sql)
-        book = cursor.fetchone()
-        sql = "select Photo from Book_Photo where Book_ID=" + "'" + data[i][1] + "'"
-        cursor.execute(sql)
-        book_photo = cursor.fetchone()
-        result=sell+book_photo+book+tuple(data[i][1])
-        final_data[str(i)]=result
+        info = cursor.fetchone()
+        result=[info]
+        list=list+result
         i+=1
-    print(final_data)
+    final_data["data"]=list
     return jsonify(final_data)
-
-
-@app.route('/settlement/',methods=['post'])                                                           #结算（下单）接口
-def settlement():
-    original_data = request.get_json('data')
-    SID = original_data["S_ID"]
-    list = original_data["book_id"]
-    i=0
-    while i<len(list):
-        try:
-            sql = "delete  from Shoopcar where Buy_ID=" + "'" + list[str(i)] + "'"
-            cursor.execute(sql)
-            orders = cursor.fetchone()
-            book_data.commit()
-            sql= "select Sell_ID from Shoopcar where Book_ID='" + list[str(i+1)] + "'"
-            cursor.execute(sql)
-            Sell_ID = cursor.fetchone()
-            sql = "select count(*) from Order_Form"
-            cursor.execute(sql)
-            count = cursor.fetchone()
-            sql = "insert into Order_Form values(" + "'" + (count+i+1) + "'"+ "'" +list[i] + "'"+ "'" + SID + "'"+  "'" + Sell_ID + "'"+  "'" + r_type + "'" +  "'" + 1 + "'"+ A_num + "'"+ "'" + massage + "'"+")"
-            cursor.execute(sql)
-            book_data.commit()
-            sql="update Book set B_statue='已售' where Book_ID="+"'"+list[i]+"'"
-            cursor.execute(sql)
-            book_data.commit()
-            i+=1
-        except:
-            print("有问题")
-            return jsonify({"statue": 2})                                 #创建订单失败
-    return jsonify({"statue": 1})                                         #创建订单成功
-
-@app.route('/creat_address/',methods=['post'])
-def creat_address():                                                       #创建地址接口
-    original_data = request.get_json('data')
-    SID=original_data["S_ID"]
-    sql = "select count(*) from Order_Form where Buy_ID="+"'"+SID+"'"
-    cursor.execute(sql)
-    count = cursor.fetchone()
-    sql = "insert into Addresses values("+ "'" + (count+1) + "'"+ "'" +  original_data["name"] + "'"+ "'" + original_data[sid] + "'"+ "'" + original_data[sid] + "'"+ original_data[sid] + "'"+")"
-    cursor.execute(sql)
-    book_data.commit()
-    return jsonify({"statue": 1})                                       #创建成功
-
-
-
-@app.route('/get_addresses/',methods=['post'])                                                     #获得地址接口
-def get_addresses():
-    original_data = request.get_json('data')
-    SID = original_data["S_ID"]
-    sql="select R_name,R_address,Phone from Addresses where S_ID="+SID
-    cursor.execute(sql)
-    final_data = {"statue": 1}
-    final_data["1"]=cursor.fetchall()
-    return jsonify({"statue": 1})
-
-@app.route('/creat_order/',methods=['post'])                                                 #创建订单接口
-def creat_order():
-    original_data = request.get_json('data')
-    print(original_data)
-    SID=original_data["S_ID"]
-    list = original_data["book_id"]
-    i=0
-    print(list)
-    final_data = {"statue": 1}
-    print(len(list))
-    while i<len(list):
-        sql = "select Book_name,price from Book where Book_ID=" + "'" + list[str(i+1)] +"'"
-        cursor.execute(sql)
-        book = cursor.fetchone()
-        sql = "select Photo from Book_Photo where Book_ID='" + list[str(i+1)] + "'"
-        cursor.execute(sql)
-        photo= cursor.fetchone()
-        sql = "select Sell_ID from Shoopcar where Book_ID='" + list[str(i+1)] + "' and Buy_ID='"+SID+"'"
-        cursor.execute(sql)
-        s_ID = cursor.fetchone()
-        sql = "select Photo,Sex,Nick_name from Student where S_ID='" + s_ID[0] + "'"
-        cursor.execute(sql)
-        sell=cursor.fetchone()
-        result=sell+photo+book+tuple(list[str(i+1)])
-        print(result)
-        final_data[str(i)]=result
-        print(final_data)
-        i += 1
-    print("45351")
-    print(final_data)
-    return jsonify(final_data)
-
 
 @app.route('/del_shopcar/',methods=['post'])                                                 #删除购物车
 def del_shopcar():
@@ -234,10 +145,166 @@ def del_shopcar():
     SID = original_data["S_ID"]
     del_id = original_data["delete_id"]
     sql="DELETE FROM Shoopcar WHERE Book_ID =  "+"'"+del_id +"'"+"and Buy_ID = " +"'"+SID +"'"
-    print(sql)
     cursor.execute(sql)
     book_data.commit()
     return jsonify({"statue": 1})                                           #删除成功
+
+
+@app.route('/add_shopcar/',methods=['post'])                                                 #添加购物车
+def add_shopcar():
+    original_data = request.get_json('data')
+    SID = original_data["Sell_ID"]
+    book = original_data["Book_ID"]
+    BID = original_data["Buy_ID"]
+    sql = "insert into Shoopcar values(" + "'" + BID + "','"+book+"','"+SID+"')"
+    cursor.execute(sql)
+    book_data.commit()
+    return jsonify({"statue": 1})                                                              #添加成功
+
+@app.route('/creat_order/',methods=['post'])                                                 #生成订单信息返回前端（未入库）
+def creat_order():
+    original_data = request.get_json('data')
+    SID=original_data["S_ID"]
+    Book_id = original_data["book_id"]
+    i=0
+    list=[]
+    final_data = {"statue": 1}
+    while i<len(Book_id):
+        sql = "select Sell_ID from Shoopcar where Book_ID='" + Book_id[str(i)] + "' and Buy_ID='"+SID+"'"
+        cursor.execute(sql)
+        s_ID = cursor.fetchone()
+        sql = "select Book_name,price,Book_Photo.Photo,Sex,Nick_name,Student.Photo,R_name,R_address,Phone from Student,Book,Book_Photo,Addresses where Student.S_ID=Book.Sell_ID and Book.Book_ID=Book_Photo.Book_ID and Student.S_ID='" + s_ID[0] + "' and Book.book_ID='" + Book_id[str(i)] + "'and A_num= 1"
+        cursor.execute(sql)
+        info=cursor.fetchone()
+        result=[tuple(info)+tuple(Book_id[str(i)])]
+        list=list+result
+        i += 1
+    final_data["data"]=list
+    return jsonify(final_data)
+
+
+@app.route('/creat_address/',methods=['post'])
+def creat_address():                                                       #创建地址接口
+    original_data = request.get_json('data')
+    SID=original_data["S_ID"]
+    name=original_data["n_name"]
+    tel=original_data["n_tel"]
+    ad=original_data["n_ad"]
+    print("1")
+    print(ad)
+    print(type(tel))
+    print(name)
+    sql = "select count(*) from Addresses where S_ID="+"'"+SID+"'"
+    print(sql)
+    cursor.execute(sql)
+    count = cursor.fetchone()
+    num=count[0]+1
+    sql = "insert into Addresses values('" + str(num) + "','" + str(num) + "','"+ name + "','" + SID + "','" + ad + "','"+ tel + "')"
+    print(sql)
+    cursor.execute(sql)
+    book_data.commit()
+    return jsonify({"statue": 1})                                       #创建成功
+
+
+
+@app.route('/get_addresses/',methods=['post'])                                                     #获取用户地址数据
+def get_addresses():
+    original_data = request.get_json('data')
+    S_ID = original_data["S_ID"]
+    sql="select R_name,R_address,Phone from Addresses where S_ID="+"'"+S_ID+"'order by A_num"
+    print(sql)
+    cursor.execute(sql)
+    final_data=cursor.fetchall()
+    print(final_data)
+    if final_data == None:
+        return jsonify({"statue": 1})
+    else:
+        return jsonify({"statue":2,"data":final_data})
+
+
+@app.route('/del_address/',methods=['post'])                                                 #删除地址
+def del_address():
+    original_data = request.get_json('data')
+    SID = original_data["S_ID"]
+    del_id = original_data["del_id"]
+    sql = "select count(*) from Addresses where S_ID=" + "'" + SID + "'"
+    print(sql)
+    cursor.execute(sql)
+    count = cursor.fetchone()
+    print(count)
+    sql="DELETE FROM Addresses WHERE A_num =  "+"'"+del_id +"'"+"and S_ID = " +"'"+SID +"'"
+    print(sql)
+    cursor.execute(sql)
+    book_data.commit()
+    sql = "update Addresses set A_num='"+del_id+"' where A_num='"+str(count[0])+"' and S_ID='" + SID + "'"
+    print(sql)
+    cursor.execute(sql)
+    book_data.commit()
+
+    return jsonify({"statue": 1})
+
+@app.route('/change_address/',methods=['post'])                                                 #删除购物车
+def change_address():
+    original_data = request.get_json('data')
+    SID = original_data["S_ID"]
+    change_id = original_data["re_id"]
+    sql="update Addresses set A_num='0' where A_num='1' and S_ID='"+SID+"'"
+    print(sql)
+    cursor.execute(sql)
+    book_data.commit()
+    sql="update Addresses set A_num='1' where A_num="+"'"+change_id+"'"+"and S_ID='"+SID+"'"
+    print(sql)
+    cursor.execute(sql)
+    book_data.commit()
+    sql = "update Addresses set A_num='"+change_id+"' where A_num='0' and S_ID='"+SID+"'"
+    print(sql)
+    cursor.execute(sql)
+    book_data.commit()
+    return jsonify({"statue": 1})
+
+@app.route('/settlement/',methods=['post'])                                                           #结算（下单）接口
+def settlement():
+    original_data = request.get_json('data')
+    SID = original_data["S_ID"]
+    list = original_data["book_id"]
+    message=original_data["message"]
+    r_type=original_data["delev_way"]
+    sum=original_data["sum"]
+    i=0
+    sql = "select count(*) from Order_Form"
+    cursor.execute(sql)
+    count = cursor.fetchone()[0]+1
+    while i<len(list):
+        print(i)
+        try:
+            sql= "select Sell_ID from Shoopcar where Book_ID='" + list[str(i)] + "'"
+            print(sql)
+            cursor.execute(sql)
+            Sell_ID = cursor.fetchone()[0]
+            print(Sell_ID)
+            print(message)
+            sql="select B_num from Addresses where A_num='1'"
+            cursor.execute(sql)
+            B_num=cursor.fetchone()
+            sql = "insert into Order_Form values(" + "'" + str(count+i) + "',"+ "'" +list[str(i)] + "',"+ "'" + SID + "',"+  "'" + Sell_ID + "',"+  "'" + r_type[str(i)] + "',"+ "1," +  str(B_num[0])+",'" + message[str(i)] + "',"+str(sum)+")"
+            print(sql)
+            cursor.execute(sql)
+            book_data.commit()
+            sql="update Book set B_statue='已售' where Book_ID="+"'"+list[str(i)]+"'"
+            cursor.execute(sql)
+            book_data.commit()
+            print(sql)
+            sql = "delete  from Shoopcar where Book_ID=" + "'" + list[str(i)] + "'"
+            cursor.execute(sql)
+            book_data.commit()
+            print(sql)
+            i+=1
+        except:
+            print("有问题")
+            return jsonify({"statue": 2})                                 #创建订单失败
+    return jsonify({"statue": 1})                                         #创建订单成功
+
+
 
 @app.route('/mordersearchall/',methods=['post'])
 def mordersearchall():#全部订单(下的)
