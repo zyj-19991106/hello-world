@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="css/font-awesome.css">
+	<meta charset="UTF-8">
+	<title>个人介绍</title>
+    <style type="text/css">
+
+      .cfx{
+        width: 69%;
+        height: 6%;
+        position:absolute;
+        left:0%;
+      }
+       .ID  {
+         font-family: 微软雅黑;
+         font-size: 30px;
+         width:60%;
+         height: 5%;
+         text-align: center;
+         opacity:0.75;
+         color: #ffffff;
+      }
+
+     .wenbenkuang{
+       height: 5%;
+       width: 70%;
+       border-color: black;
+     }
+
+      .sanchu{
+           font-family: 微软雅黑;
+           font-size: 230%;
+           width: 20%;
+           height:5%;
+          color: white;
+      }
+
+    </style>
+</head>
+<body bgcolor="#F0F0F0">
+</body>
+<body>
+
+  <div id="top" class="cfx" style="position:absolute;top:0%;width:101%;height:7%;background-color: #4D9FE9;">
+    <a href="shezhi.html"style="text-decoration:none;"><i class="fa fa-chevron-left fa-5x"style="position:absolute;top:15%;left:3%;color:white;"></i></a>
+    <text style="position:absolute;top:20%;left:37%;font-size:350%;color:white;">修改昵称</text>
+
+  </div>
+
+  <div>
+
+   <input id="name" type="text"  class="wenbenkuang" cols="20" rows="20"style="position:absolute;font-size:200%;left:15%;top:8%;background: white;" >
+     </inputtextarea>
+    <input  class="sanchu" type="button" onclick="setname()" style="position:absolute; left:41%; top:30%;border-radius:10px;background-color:#4D9FE9" value="保存"  />
+  </div>
+
+</body>
+</html>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+       function setname() {
+            var S_ID=localStorage.getItem('S_ID')
+            var Nick_name=document.getElementById("name").value;
+            var data={
+                    "S_ID":S_ID,
+                    "Nick_name":Nick_name
+                }
+                  $.ajax({
+                  url:'http://127.0.0.1:5000/setname/',
+                  type:'post',
+                  data:JSON.stringify(data),
+                  success:function (data) {
+
+                          if(data["statue"] == 2001)
+                          {
+                              alert("修改成功")
+                              window.location.href='shezhi.html';
+                          }
+
+
+                  },
+                  error:function (data) {
+                      alert('error');
+                  }
+              });
+       }
+   </script>

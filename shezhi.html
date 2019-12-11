@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<meta charset="utf-8"name="viewport" content="user-scalable=no">
+<title>易书</title>
+<style type="text/css">
+body 
+{
+background-color:#f0f0f0;
+}
+.cfx{
+    width: 69%;
+    height: 6%;
+	position:absolute;
+	left:0%;
+}
+.cfx1{
+	position: absolute;
+    left: 37%;
+    width: 63%;
+    height: 6%;
+    background-color: #fafafb;
+    border-style: solid;
+    border-color: #b6acac;
+    border-width: 0.5px;
+	}
+
+.cfx2{
+	position: absolute;
+    left: 37%;
+    width: 50%;
+    height: 6%;
+    background-color: #fafafb;
+    border-style: solid;
+    border-color: #b6acac;
+    border-width: 0.5px;
+	}	
+.zi{
+    
+    font-size: 43px;
+    font-family: 宋体;
+    color: #b6b3b3;
+}
+
+
+.img
+{
+	width: 80%;
+    height: 79%;
+    border-style: solid;
+    border-width: 0.5px;
+    border-color: #d4cdcd;
+    background-color: #e5e2e2;
+    position: absolute;
+    left: 9%;
+    top: 8%;
+}
+.zfx2{
+	width: 100%;
+    height: 7%;
+	border-style:solid;
+	border-width:0.5px;
+	border-color:#d4cdcd;
+    background-color: white;
+	position: absolute;
+    left: 0%;
+	}
+	.circle
+{
+	width: 170px;
+    height: 170px;
+    background-color: #065e61;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    position: absolute;
+    top: 11%;
+    left: 75%;
+}
+
+   #bu1
+   { 
+    width: 100%;
+    height: 8%;
+    border-style: solid;
+    border-width: 3px;
+    border-color: #77ace2;
+    background-color: #77ace2;
+    border-radius: 10px;
+    font-size: 62px;
+	}
+</style>
+</head>
+<body onload="show()">
+<!--上横条-->
+<div id="top"  style="position:absolute;top:0%;width:100%;height:10%;background-color: #4d9fe9;left:0">
+<text id="shezhi"style="position:absolute;top:30%;left:44%;font-size: 58px;font-family: 宋体;color: white;">设置</text>
+<i onclick="window.location.href='personal_center.html'" class="fa fa-angle-left fa-5x" style="position:absolute;top:20%;left:3%;color: white;"></i>
+</div>
+<!--上横条下白条-->
+<div class="zfx2"style="position:absolute;top:11%;">
+
+<text id="ckdd"class="zi"style="position:absolute;top:34%;left:2%;">ID</text>
+<text id="ID"class="zi"style="position:absolute;top:34%;left:76%;">1237648</text>
+</div>
+
+<div onclick="window.location.href='name.html'" class="zfx2"style="position:absolute;top:18%;">
+<i class="fa fa-angle-right fa-5x" style="position:absolute;top:30%;left:94%;color:#797272;"></i>
+<text id="ckdd"class="zi"style="position:absolute;top:34%;left:2%;">昵称</text>
+<text id="name"class="zi"style="position:absolute;top:34%;right:12%;">昵称</text>
+</div>
+<div onclick="window.location.href='head.html'" class="zfx2"style="position:absolute;top:25%;height:13%;">
+<i class="fa fa-angle-right fa-5x" style="position:absolute;top:30%;left:94%;color:#797272;"></i>
+<text id="ckdd"class="zi"style="position:absolute;top:34%;left:2%;">头像</text>
+<!--<img src="img/head.jpg" id="circle"/>-->
+<img class="circle" src="" id="head"/>
+</div>
+
+<div class="zfx2"style="position:absolute;top:38%;">
+<i onclick="window.location.href='gerenjieshao.html'" class="fa fa-angle-right fa-5x" style="position:absolute;top:30%;left:94%;color:#797272;"></i>
+<text id="ckdd"class="zi"style="position:absolute;top:34%;left:2%;">个人介绍</text>
+</div>
+<div class="zfx2"style="position:absolute;top:45%;">
+<text id="ckdd"class="zi"style="position:absolute;top:34%;left:2%;">学院</text>
+<text id="college"class="zi"style="position:absolute;top:34%;right: 5%;width:60%;text-align: right">数计学院</text>
+</div>
+<div class="zfx2"style="position:absolute;top:52%;">
+<i onclick="window.location.href='receive_address.html'" class="fa fa-angle-right fa-5x" style="position:absolute;top:30%;left:94%;color:#797272;"></i>
+<text id="ckdd"class="zi"style="position:absolute;top:34%;left:2%;">收货地址</text>
+</div>
+<div class="zfx2"style="position:absolute;top:59%;">
+<i onclick="window.location.href='xuehaorenzheng.html'" class="fa fa-angle-right fa-5x" style="position:absolute;top:30%;left:94%;color:#797272;"></i>
+<text id="ckdd"class="zi"style="position:absolute;top:34%;left:2%;">学号认证</text>
+</div>
+<div class="zfx2"style="position:absolute;top:66%;">
+<i onclick="window.location.href='xiugaimima.html'" class="fa fa-angle-right fa-5x" style="position:absolute;top:30%;left:94%;color:#797272;"></i>
+<text id="ckdd"class="zi"style="position:absolute;top:34%;left:2%;">修改密码</text>
+</div>
+<div class="zfx2"style="position:absolute;top:75%;">
+<i onclick="window.location.href='bangzu.html'" class="fa fa-angle-right fa-5x" style="position:absolute;top:30%;left:94%;color:#797272;"></i>
+<text id="ckdd"class="zi"style="position:absolute;top:34%;left:2%;">帮助</text>
+</div>
+<div class="zfx2"style="position:absolute;top:82%;">
+<i onclick="window.location.href='shenheguize.html'" class="fa fa-angle-right fa-5x" style="position:absolute;top:30%;left:94%;color:#797272;"></i>
+<text id="ckdd"class="zi"style="position:absolute;top:34%;left:2%;">审核规则</text>
+</div>
+<div class="zfx2"style="position:absolute;top:89%;">
+<i onclick="window.location.href='yinsizhengce.html'" class="fa fa-angle-right fa-5x" style="position:absolute;top:30%;left:94%;color:#797272;"></i>
+<text id="ckdd"class="zi"style="position:absolute;top:34%;left:2%;">隐私政策</text>
+</div>
+<div class="zfx2"style="position:absolute;top:96%;">
+<i onclick="window.location.href='yonghuxieyi.html'" class="fa fa-angle-right fa-5x" style="position:absolute;top:30%;left:94%;color:#797272;"></i>
+<text id="ckdd"class="zi"style="position:absolute;top:34%;left:2%;">用户协议</text>
+</div>
+<div class="zfx2"style="position:absolute;top:103%;">
+<i onclick="window.location.href='guanyuyishu.html'" class="fa fa-angle-right fa-5x" style="position:absolute;top:30%;left:94%;color:#797272;"></i>
+<text id="ckdd"class="zi"style="position:absolute;top:34%;left:2%;">关于易书</text>
+</div>
+
+<button id="bu1" onclick="window.location.href='index.html'" style="position:absolute;top: 113%;left: 0%;color:white;">退出登录</button>
+</body>
+</html>
+
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+       function show()
+       {
+            var S_ID=localStorage.getItem('S_ID')
+            var data={"S_ID":S_ID}
+            $.ajax({
+               url:'http://127.0.0.1:5000/setup/',
+               type:'post',
+               data:JSON.stringify(data),
+               success:function (data) {
+                   document.getElementById("ID").innerHTML=data['data'][0]
+                   document.getElementById("name").innerHTML=data['data'][1]
+                   document.getElementById("head").src=data['data'][2]
+                   document.getElementById("college").innerHTML=data['data'][3]
+               },
+               error:function (data) {
+                   alert('连接服务器失败');
+                        }
+                    });
+       }
+        window.onload=show;
+   </script>

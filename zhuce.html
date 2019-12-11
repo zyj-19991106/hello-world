@@ -1,0 +1,140 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1,user-scalable=no,maximum-scale=1.0,minimum-scale=1.0"/>
+<title>易书</title>
+<style type="text/css">
+body 
+{
+background-repeat:no-repeat ;
+background-size:120%;
+background-attachment: fixed;"
+background-position: center;
+}
+#login{
+	position: absolute;
+    top: 5%;
+    left: 18%;
+    width: 80%;
+    height: 75%;
+	}
+	
+.tianxie{
+    width: 69%;
+    height: 6%;
+    font-family: 幼圆;
+    text-align: center;
+    position: absolute;
+	left:19%;
+	border-style: solid;
+    border-width: 2px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    background: none;
+    border-color: #070708;
+	display: block;
+}
+
+.aa{
+    
+   font-size: 100%;
+    font-family: 宋体;
+    color: #4292e2;
+}
+.txt
+{   font-size: 100%;
+    color: #77ace2;
+    position: absolute;
+    left: 2%;
+}
+
+   #bu1
+   { 
+    width: 85%;
+    height: 9%;
+    border-style: solid;
+    border-width: 3px;
+    border-color: #77ace2;
+    background-color: #77ace2;
+    border-radius: 10px;
+    font-size: 100%;
+	}
+	#p1
+	{
+	position: absolute;
+    top: 1%;
+    left: 25%;
+    width: 50%;
+    height: 35%;
+	}
+</style>
+    		<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+       function register() {
+            var S_ID=document.getElementById("zhanghao").value;
+            var Psw=document.getElementById("mima").value;
+            var Psw1=document.getElementById("qrmima").value;
+            var data={
+                    "S_ID":S_ID,
+                    "Psw":Psw,
+                    "Psw1":Psw1
+                }
+                if(S_ID==''||Psw==''||Psw1=='')
+                            alert("输入信息不完整")
+                else{
+                        $.ajax({
+                        url:'http://127.0.0.1:5000/register/',
+                        type:'post',
+                        data:JSON.stringify(data),
+                        success:function (data) {
+                                if(data["statue"] == 1)
+                                    alert("两次输入密码不同")
+                                if(data["statue"] == 2)
+                                    alert("密码应在6-20位")
+                                if(data["statue"] == 3)
+                                    alert("用户学号不存在")
+                                if(data["statue"] == 4)
+                                    alert("用户已存在")
+                                if(data["statue"] == 2001)
+                                {
+                                    alert("注册成功")
+                                    window.location.href='index.html';
+                                }
+                        },
+                        error:function (data) {
+                            alert('error');
+                        }
+                    });
+                }
+
+       }
+   </script>
+</head>
+
+ <!--<body background="{{ url_for('static',filename='image/背景.png') }}"> -->
+<body background="img/bg.png">
+<img src="img/ys.png" id="p1" />
+<!--登录信息-->
+<div id="login" >
+
+<!--<img src="{{ url_for('static',filename='image/易书.png') }}" style="position: absolute;top: 77%;left: 13%;width: 150px;height: 150px;" />-->
+<text  class="txt" style="position:absolute;top: 32%">账号</text>
+<text  class="txt" style="position:absolute;top: 40%">密码</text>
+<text  class="txt" style="position:absolute;top: 48%">确认密码</text>
+<input type="text"  id="zhanghao"class="tianxie" style="position:absolute;top: 30%;"/>
+<input type="text" id ="mima" class="tianxie" style="position:absolute;top:38%;"/>
+<input type="text" id ="qrmima" class="tianxie" style="position:absolute;top:46%;left:30%;width:57%;"/>
+<button onclick="register()" id="bu1"style="position:absolute;top: 60%;left: 3%;color:white;">注册</button>
+<button  onclick="window.location.href='index.html'" id="bu1"style="position:absolute;top:72%;left: 3%;color:white;">返回</button>
+</div>
+
+
+
+</body>
+</html>
+
+<script type="text/javascript">
+</script>
+
+</html>

@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>忘记密码</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.css" rel="stylesheet" />
+		<style type="text/css">
+		body 
+		{
+		background-image:url("./img/bg.png");
+		background-repeat:no-repeat ;
+		background-size:120% ;
+		background-attachment: fixed;
+		
+		
+		}
+		#login{
+			position: absolute;
+		    top: 5%;
+		    left: 18%;
+		    width: 75.5%;
+		    height: 75%;
+			}
+			
+		.tianxie{
+		    width: 69%;
+		    height: 6%;
+		    font-family: 幼圆;
+		    text-align: center;
+		    position: absolute;
+			left:19%;
+			border-style: solid;
+		    border-width: auto;
+		    border-top: none;
+		    border-left: none;
+		    border-right: none;
+		    background: none;
+		    border-color: #070708;
+		}
+		.txt
+		{   font-size: 100%;
+		    color: #77ace2;
+		    position: absolute;
+		    left: 2%;
+		}
+		
+		   #bu1
+		   { 
+		    width: 85%;
+		    height: 9%;
+		    border-style: solid;
+		    border-width:100%;
+		    border-color: #77ace2;
+		    background-color: #77ace2;
+		    border-radius: 10px;
+		    font-size: 100%;
+			}
+			#p1
+			{
+			position: absolute;
+		    top: 1%;
+		    left: 25%;
+		    width: 50%;
+		    height: 35%;
+			
+			}
+		</style>
+		<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+       function find() {
+            var S_ID=document.getElementById("xuehao").value;
+            var Psw=document.getElementById("jwcmima").value;
+            var data={
+                    "Office_ID":S_ID,
+                    "Office_psw":Psw
+                }
+                if(S_ID==''||Psw=='')
+                            alert("输入信息不完整")
+                else{
+                        $.ajax({
+                        url:'http://127.0.0.1:5000/findpsw/',
+                        type:'post',
+                        data:JSON.stringify(data),
+                        success:function (data) {
+                                if(data["statue"] == 1)
+                                    alert("学号验证失败")
+                                else if(data["statue"] == 2)
+                                    alert("教务处密码验证失败")
+                                else
+                                {
+                                    alert("您的密码为："+"\n"+data['data'])
+                                    window.location.href='ensure_pass.html';
+                                }
+                        },
+                        error:function (data) {
+                            alert('error');
+                        }
+                    });
+                }
+
+       }
+   </script>
+	</head>
+
+	<body>
+		<body >
+		 
+		<!--<img src="{{ url_for('static',filename='image/易书.png') }}" style="position: absolute;top: 77%;left: 13%;width: 150px;height: 150px;" />-->
+		 <img src="img/ys.png" id="p1"; />
+		<!--登录信息-->
+		<div id="login" >
+		
+		
+		<text  class="txt" style="position:absolute;top: 30%">学号</text>
+		<text  class="txt" style="position:absolute;top: 40%">教务处密码</text>
+		<input type="text"  id="xuehao"class="tianxie" style="position:absolute;top: 30%;"/>
+		<input type="password" id ="jwcmima" class="tianxie" style="position:absolute;top:40%;left: 35%;width:53%;"/>
+		<button  onclick="find()" id="bu1"style="position:absolute;top:51%;left: 5%;color:white;">找回密码</button>
+		<button  onclick="window.location.href='index.html'" id="bu1"style="position:absolute;top:62%;left: 5%;color:white;">返回</button>
+		</div>
+		
+		
+		
+		</body>
+	</body>
+
+</html>

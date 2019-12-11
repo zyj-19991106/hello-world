@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<meta charset="utf-8"name="viewport" content="user-scalable=no">
+<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+<title>易书</title>
+<style type="text/css">
+	
+body 
+{
+background-color:#f0f0f0;
+}
+#tx{
+	position: absolute;
+    top: 5%;
+    left: 18%;
+    width: 25%;
+    height: 25%;
+	border-style: solid;
+    border-width: 2px;
+    border-color: #77ace2;
+    background-color: #77ace2;
+    border-radius: 10px;
+	
+	}
+	
+.cfx{
+    
+	right:0%;
+}
+
+.cfx1{
+    width: 69%;
+    height: 6%;
+    background-color: #red;
+	position: absolute;
+    left: 25%;
+}
+.zfx2{
+	width: 100%;
+    height: 7%;
+	border-style:solid;
+	border-width:0.5px;
+	border-color:#d4cdcd;
+    background-color: white;
+	position: absolute;
+    left: 0%;
+	}
+.zfx3
+{
+	width: 100%;
+    height: 14%;
+	border-style:solid;
+	border-width:0.5px;
+	border-color:#d4cdcd;
+    background-color: white;
+	position: absolute;
+    top: 14%;
+	}
+	
+.zi{
+    
+    font-size: 38px;
+    font-family: 宋体;
+    color: #f6fbff;
+}
+#circle
+{
+	width: 170px;
+	height: 170px; 
+	background-color:#065e61;
+	border-radius: 50%;    
+	-moz-border-radius: 50%; 
+	-webkit-border-radius: 50%;
+	position:absolute;
+	top:11%;
+	left:4%;
+}
+  
+</style>
+</head>
+<!--上横条-->
+<div id="top" class="cfx" style="position:absolute;top:0%;width:100%;height:14%;background-color: #4d9fe9">
+<img src="./img/head.jpg" id="circle"/>
+<i class="fa fa-mars fa-3x"style="position:absolute;top:23%;left:26%;color:white;"></i>
+<text id="name"class="zi"style="position:absolute;top:26%;left:33%;">张三</text>
+<text id="xuyuan" class="zi"style="position:absolute;top:50%;left:26%;">数计学院</text>
+</div>
+<!--下导航
+<div id="bottom" class="cfx" style="position:absolute;top:93%;width:100%;height:7%;background-color:white;">
+
+<a href="shouye.html"style="text-decoration:none;"><i class="fa fa-home fa-4x"style="position:absolute;top:21%;left:9%;color:#797272;"></i></a>
+<text style="position:absolute;top:81%;left:11%;color:#797272;">首页</text>
+
+<a href="message.html"style="text-decoration:none;"><i class="fa fa-commenting-o fa-4x"style="position:absolute;top:21%;left:32%;color:#797272;"></i></a>
+<text style="position:absolute;top:81%;left:34%;color:#797272;">消息</text>
+
+<a href="shopcar.html"style="text-decoration:none;"><i class="fa fa-shopping-cart fa-5x" style="position:absolute;top:21%;left:55%;color:#797272;"></i></a>
+<text style="position:absolute;top:81%;left:57%;color:#797272;">购物车</text>
+
+<a href="personal_center.html"style="text-decoration:none;"><i class="fa fa-user-o fa-5x" style="position:absolute;top:21%;left:80%;color:#797272;"></i></a>
+<text style="position:absolute;top:81%;left:82%;color:#797272;">我的</text>
+
+</div>-->
+
+<div id="bottom" class="cfx" style="position:absolute;top:93%;width:100%;height:7%;background-color:white;">
+
+	<a href="shouye.html"style="text-decoration:none;"><i class="fa fa-home fa-5x"style="position:absolute;top:21%;left:9%;color:#797272;font-size:440% "></i></a>
+	<text style="position:absolute;top:75%;left:10%;color:#797272;font-size:23px;">首页</text>
+
+	<a href="message.html"style="text-decoration:none;"><i class="fa fa-commenting-o fa-5x"style="position:absolute;top:17%;left:32%;color:#797272 ;font-size:440%"></i></a>
+	<text style="position:absolute;top:76%;left:33%;color:#797272;font-size:23px;">消息</text>
+
+	<a href="shopcar.html"style="text-decoration:none;"><i class="fa fa-shopping-cart fa-5x" style="position:absolute;top:19%;left:56%;color:#797272;font-size:440%"></i></a>
+	<text style="position:absolute;top:75%;left:56%;color:#797272;font-size:23px;">购物车</text>
+
+	<a href="personal_center.html"style="text-decoration:none;"><i class="fa fa-user-o fa-5x" style="position:absolute;top:25%;left:82%;color:rgba(77, 153, 233, 1.0);font-size:392%"></i></a>
+	<text style="position:absolute;top:76%;left:82%;color:#797272;font-size:23px;">我的</text>
+
+</div>
+
+
+<!--中间部分-->
+
+<div class="zfx3"style="position:absolute;left:0%;">
+<i onclick="window.location.href='wodedingdan.html'" class="fa fa-credit-card-alt fa-5x" style="position:absolute;top:22%;left:10%;color:#4d9fe9;"></i>
+<text style="position:absolute;top:59%;left:8%;color:#797272;font-size:36px;">我下的订单</text>
+<i onclick="window.location.href='shoudaodedingdan.html'" class="fa fa-credit-card fa-5x" style="position:absolute;top:22%;left:44%;color:#4d9fe9;"></i>
+<text style="position:absolute;top:59%;left:41%;color:#797272;font-size:36px;">收到的订单</text>
+<i onclick="window.location.href='pingjia.html'" class="fa fa-shopping-bag fa-5x" style="position:absolute;top:22%;left:75%;color:#4d9fe9;"></i>
+<text  style="position:absolute;top:59%;left:75%;color:#797272;font-size:36px;">评价</text>
+</div>
+
+
+
+<div class="zfx2"style="position:absolute;top:30%;">
+<i class="fa fa-calendar-plus-o fa-5x" style="position:absolute;top:22%;left:2%;color:#797272;"></i>
+<i onclick="window.location.href='sell_book.html'" class="fa fa-angle-right fa-5x" style="position:absolute;top:22%;left:90%;color:#797272;"></i>
+<text style="position:absolute;top:22%;left:15%;color:#797272;font-size:58px;">出售</text>
+</div>
+
+<div class="zfx2"style="position:absolute;top:37%;">
+<i class="fa fa-headphones fa-5x" style="position:absolute;top:22%;left:2%;color:#797272;"></i>
+<i onclick="window.location.href='kefu.html'" class="fa fa-angle-right fa-5x" style="position:absolute;top:22%;left:90%;color:#797272;"></i>
+<text style="position:absolute;top:22%;left:15%;color:#797272;font-size:58px;">客服</text>
+</div>
+
+<div class="zfx2"style="position:absolute;top:47%;">
+<i class="fa fa-github fa-5x" style="position:absolute;top:22%;left:2%;color:#797272;"></i>
+<i class="fa fa-angle-right fa-5x" style="position:absolute;top:22%;left:90%;color:#797272;"></i>
+<text style="position:absolute;top:22%;left:15%;color:#797272;font-size:58px;">粉丝</text>
+</div>
+<div class="zfx2"style="position:absolute;top:54%;">
+<i class="fa fa-user-plus fa-5x" style="position:absolute;top:22%;left:2%;color:#797272;"></i>
+<i class="fa fa-angle-right fa-5x" style="position:absolute;top:22%;left:90%;color:#797272;"></i>
+<text style="position:absolute;top:22%;left:15%;color:#797272;font-size:58px;">关注</text>
+</div>
+<div class="zfx2"style="position:absolute;top:64%;">
+<i class="fa fa-paint-brush fa-5x" style="position:absolute;top:22%;left:2%;color:#797272;"></i>
+<i class="fa fa-angle-right fa-5x" style="position:absolute;top:22%;left:90%;color:#797272;"></i>
+<text style="position:absolute;top:22%;left:15%;color:#797272;font-size:58px;">个性化</text>
+
+</div>
+<div class="zfx2"style="position:absolute;top:71%;">
+<i class="fa fa-question-circle-o fa-5x" style="position:absolute;top:22%;left:2%;color:#797272;"></i>
+<i class="fa fa-angle-right fa-5x" style="position:absolute;top:22%;left:90%;color:#797272;"></i>
+<text style="position:absolute;top:22%;left:15%;color:#797272;font-size:58px;">问题反馈</text>
+</div>
+<div class="zfx2"style="position:absolute;top:78%;">
+<i class="fa fa-cog fa-5x" style="position:absolute;top:22%;left:2%;color:#797272;"></i>
+<i onclick="window.location.href='shezhi.html'" class="fa fa-angle-right fa-5x" style="position:absolute;top:22%;left:90%;color:#797272;"></i>
+<text style="position:absolute;top:22%;left:15%;color:#797272;font-size:58px;">设置</text>
+</div>
+
+</body>
+</html>
+
+<script type="text/javascript">
+</script>

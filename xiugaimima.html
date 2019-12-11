@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="css/font-awesome.css">
+	<meta charset="UTF-8">
+	<title>修改密码</title>
+    <style type="text/css">
+
+      .cfx{
+        width: 69%;
+        height: 6%;
+        position:absolute;
+        left:0%;
+      }
+       .ID  {
+         font-family: 微软雅黑;
+         font-size: 30px;
+         width:60%;
+         height: 5%;
+         text-align: center;
+         opacity:0.75;
+         color: #ffffff;
+      }
+
+      h1{
+        top:15%;
+        left: 5%;
+        width: 90%;
+        height:0.25%;
+        position: fixed;
+        background-color: #cccccc;
+      }
+     h2{
+        top:23%;
+        left: 5%;
+        width: 90%;
+        height:0.25%;
+        position: fixed;
+        background-color: #cccccc;
+      }
+     h3{
+        top:15%;
+        left: 0;
+        width: 100%;
+        height:20%;
+        position: fixed;
+        background-color: white;
+      }
+
+      .sanchu{
+           font-family: 微软雅黑;
+           font-size: 230%;
+           width: 20%;
+           height:5%;
+          color: white;
+      }
+
+    </style>
+  		<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+       function change() {
+            var S_ID=localStorage.getItem('S_ID')
+            var Psw=document.getElementById("yuanmima").value;
+            var Psw1=document.getElementById("xinmima").value;
+
+            var data={
+                    "S_ID":S_ID,
+                    "Opsw":Psw,
+                    "Npsw":Psw1
+                }
+                alert(S_ID)
+           if(S_ID=='')
+               alert("用户未登录，或者登陆状态过期")
+           else if(Psw==''||Psw1=='')
+               alert("输入信息不完整")
+           else{
+                  $.ajax({
+                  url:'http://127.0.0.1:5000/changepsw/',
+                  type:'post',
+                  data:JSON.stringify(data),
+                  success:function (data) {
+
+                          if(data["statue"] == 1)
+                              alert("密码验证错误")
+                          if(data["statue"] == 2)
+                              alert("新密码不能与原密码相同")
+                          if(data["statue"] == 2001)
+                          {
+                              alert("修改成功")
+                              window.location.href='index.html';
+                          }
+
+
+                  },
+                  error:function (data) {
+                      alert('error');
+                  }
+              });
+           }
+
+       }
+   </script>
+</head>
+<body bgcolor="#F0F0F0">
+</body>
+<body>
+
+  <div id="top" class="cfx" style="position:absolute;top:0%;width:101%;height:7%;background-color: #4D9FE9;">
+    <a href="shezhi.html"style="text-decoration:none;"><i class="fa fa-chevron-left fa-5x"style="position:absolute;top:15%;left:3%;color:white;"></i></a>
+    <text style="position:absolute;top:20%;left:37%;font-size:350%;color:white;">修改密码</text>
+
+  </div>
+
+  <div>
+  <h1></h1>
+    <a style="position:absolute;top:11%;left:12%;font-size:250%;color: black">
+        原密码：<br>
+    </a>
+    <input class="ID"type="text" id="yuanmima" placeholder="请输原密码" style="position:absolute;top:10%;left:31%;border-radius:30px; border: 0.5px;color:black; ">
+    <h2></h2>
+    <a style="position:absolute;top:19%;left:12%;font-size:250%;color: black">
+        新密码：<br>
+    </a>
+      <input class="ID"type="text" id="xinmima" placeholder="请输入新密码" style="position:absolute;top:18%;left:31%;border-radius:30px; border: 0.5px;color: black; ">
+
+    <input  class="sanchu" type="button" onclick="change()" style="position:absolute; left:42%; top:28%;border-radius:10px;background-color:#4D9FE9" value="保存"  />
+  </div>
+
+
+
+
+
+</body>
+</html>
